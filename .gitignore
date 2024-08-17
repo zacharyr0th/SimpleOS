@@ -1,0 +1,21 @@
+# Object files
+*.o
+
+# Binaries
+*.bin
+*.iso
+
+# Temporary files
+*.tmp
+*.swp
+*~
+
+# Build directory (if you have one)
+build/
+
+# IDE-specific files (adjust as needed)
+.vscode/
+.idea/
+
+# macOS specific
+.DS_Store
