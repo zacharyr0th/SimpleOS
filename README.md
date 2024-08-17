@@ -52,7 +52,7 @@ SimpleOS is a minimalistic operating system kernel designed for x86-64 architect
    dd if=/dev/zero of=myos.img bs=1M count=64
    ```
 
-2. Set up your bootloader and kernel on this image (refer to your bootloader documentation).
+2. Set up your bootloader and kernel on this image.
 
 3. Use QEMU (Quick Emulator - a free and open-source emulator for x86 and x86_64) to run your OS:
 
