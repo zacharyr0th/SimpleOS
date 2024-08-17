@@ -36,36 +36,6 @@ SimpleOS is a minimalistic operating system kernel designed for x86-64 architect
    - Separated header and implementation files
    - Clear separation of concerns (e.g., keyboard, ports, terminal)
 
-## Ways to Use SimpleOS
-
-1. **Educational Tool**
-   - Learn about low-level OS development
-   - Understand x86-64 architecture specifics
-
-2. **Experimentation Platform**
-   - Add new features to explore OS concepts
-   - Test different scheduling algorithms or memory management techniques
-
-3. **Customization**
-   - Modify keyboard layouts or add support for different languages
-   - Extend terminal capabilities for more advanced text-based interfaces
-
-4. **Bootable Environment**
-   - Create a minimalistic, bootable operating system
-   - Use as a base for developing specialized, bare-metal applications
-
-5. **Hardware Interaction**
-   - Learn about direct hardware communication in a controlled environment
-   - Experiment with different device drivers
-
-6. **Performance Testing**
-   - Benchmark low-level operations without OS overhead
-   - Compare against other minimal OS implementations
-
-7. **Security Research**
-   - Explore low-level security concepts
-   - Implement and test various protection mechanisms
-
 ## Considerations that were made
 
 * Quick and easy testing: Rebuild your kernel, copy to the image, and rerun QEMU.
@@ -116,10 +86,6 @@ SimpleOS is a minimalistic operating system kernel designed for x86-64 architect
    ```bash
    qemu-system-x86_64 -drive format=raw,file=myos.img -serial stdio
    ```
-
-## Contributing
-
-Contributions to SimpleOS are welcome! Please feel free to submit pull requests, report bugs, or suggest new features.
 
 ## License
 
