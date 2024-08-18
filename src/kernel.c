@@ -235,7 +235,7 @@ void kernel_main(void) {
     init_paging();
     init_scheduler();
     
-    terminal_writestring("Welcome to SimpleOS!\n");
+    terminal_writestring("Welcome to SimpleOS, there isn't much to do.\n");
     
     create_process(process1);
     create_process(process2);
