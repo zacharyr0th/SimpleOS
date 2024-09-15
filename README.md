@@ -1,6 +1,8 @@
 # SimpleOS: A Basic x86-64 Operating System Kernel
 
-SimpleOS is an operating system kernel designed for x86-64 architecture. It serves as a foundation for exploring kernel architecture and OS development.
+SimpleOS is an operating system kernel designed for x86-64 architecture. 
+
+It serves as a foundation for exploring kernel architecture and OS development.
 
 ## Table of Contents
 
