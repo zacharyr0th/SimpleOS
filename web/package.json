@@ -1,0 +1,40 @@
+{
+  "name": "simpleos-web",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --turbopack --hostname 127.0.0.1 -p 3160",
+    "build:os": "cd .. && make && mkdir -p web/public/os && cp simpleos.iso web/public/os/simpleos.iso",
+    "build": "next build",
+    "start": "next start --hostname 127.0.0.1 -p 3160",
+    "lint": "biome lint .",
+    "lint:fix": "biome lint --write .",
+    "format": "biome format --write .",
+    "check": "biome check --write .",
+    "typecheck": "tsc --noEmit",
+    "test": "echo \"No browser unit tests configured for SimpleOS web\"",
+    "test:unit": "bun run test",
+    "test:e2e": "echo \"Kernel/QEMU e2e runs from the parent package\"",
+    "validate": "bun run lint && bun run typecheck && bun run test:unit",
+    "validate:full": "bun run validate && bun run build && bun run test:e2e"
+  },
+  "packageManager": "bun@1.3.11",
+  "engines": {
+    "node": "24.x"
+  },
+  "dependencies": {
+    "next": "16.2.10",
+    "react": "19.2.7",
+    "react-dom": "19.2.7"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "1.9.4",
+    "@types/node": "20.19.43",
+    "@types/react": "19.2.17",
+    "@types/react-dom": "19.2.3",
+    "autoprefixer": "10.4.22",
+    "postcss": "8.5.10",
+    "tailwindcss": "3.4.19",
+    "typescript": "5.9.3"
+  }
+}

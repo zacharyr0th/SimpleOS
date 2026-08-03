@@ -1,0 +1,28 @@
+{
+  "name": "simpleos",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "packageManager": "bun@1.3.11",
+  "engines": {
+    "node": "24.x"
+  },
+  "workspaces": ["web"],
+  "overrides": {
+    "postcss": "8.5.10"
+  },
+  "scripts": {
+    "dev": "bun run --cwd web dev",
+    "build": "bun run --cwd web build",
+    "lint": "bun run --cwd web lint",
+    "lint:fix": "bun run --cwd web lint:fix",
+    "format": "bun run --cwd web format",
+    "typecheck": "bun run --cwd web typecheck",
+    "test": "python3 verify_os.py",
+    "test:unit": "bun run test",
+    "test:e2e": "echo \"Kernel/QEMU e2e runs in the SimpleOS workflow\"",
+    "test:kernel": "make kernel.bin && bash scripts/smoke-test.sh 12 && bash scripts/selftest.sh 15",
+    "validate": "bun run lint && bun run typecheck && bun run test:unit",
+    "validate:full": "bun run validate && bun run build && bun run test:e2e"
+  }
+}
