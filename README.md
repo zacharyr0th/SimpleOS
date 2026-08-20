@@ -1,6 +1,7 @@
 # SimpleOS
 
-An experimental operating system built from scratch in C and x86 assembly.
+A Unix-like 32-bit x86 operating system built from scratch in C and assembly
+that boots from a real ISO and runs in your browser through v86.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![GitHub stars](https://img.shields.io/github/stars/raintree-technology/SimpleOS?style=social)](https://github.com/raintree-technology/SimpleOS/stargazers)
