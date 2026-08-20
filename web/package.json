@@ -23,17 +23,18 @@
     "node": "24.x"
   },
   "dependencies": {
-    "next": "16.2.10",
+    "next": "16.2.12",
     "react": "19.2.7",
     "react-dom": "19.2.7"
   },
   "devDependencies": {
-    "@biomejs/biome": "1.9.4",
+    "@biomejs/biome": "2.5.6",
+    "@raintree-technology/trellis": "0.3.0",
     "@types/node": "20.19.43",
     "@types/react": "19.2.17",
     "@types/react-dom": "19.2.3",
     "autoprefixer": "10.4.22",
-    "postcss": "8.5.10",
+    "postcss": "8.5.26",
     "tailwindcss": "3.4.19",
     "typescript": "5.9.3"
   }

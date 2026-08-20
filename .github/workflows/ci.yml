@@ -1,0 +1,90 @@
+name: SimpleOS CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  web:
+    name: Web app
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - name: Check out source
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0
+        with:
+          persist-credentials: false
+
+      - name: Set up Bun
+        uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6
+        with:
+          bun-version: 1.3.11
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Validate web app and source checks
+        run: bun run validate
+
+      - name: Build web app
+        run: bun run build
+
+  kernel:
+    name: Kernel build and QEMU checks
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - name: Check out source
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0
+        with:
+          persist-credentials: false
+
+      - name: Run source verification
+        run: python3 verify_os.py
+
+      - name: Build pinned cross-toolchain image
+        run: docker build --tag simpleos-builder .
+
+      - name: Build normal kernel
+        run: |
+          docker run --rm -v "$PWD:/src" simpleos-builder sh -c \
+            "make CROSS_PREFIX=x86_64-elf- clean && cd userspace && make distclean && make CROSS_PREFIX=x86_64-elf- headers && cd /src && make CROSS_PREFIX=x86_64-elf- kernel.bin"
+
+      - name: Check freestanding instruction set
+        env:
+          OBJDUMP: objdump
+        run: bash scripts/check-kernel-isa.sh
+
+      - name: Install QEMU
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes qemu-system-x86
+
+      - name: Run boot smoke test
+        env:
+          SIMPLEOS_SKIP_BUILD: "1"
+        run: bash scripts/smoke-test.sh 12
+
+      - name: Build self-test kernel
+        run: |
+          docker run --rm -v "$PWD:/src" simpleos-builder sh -c \
+            "cd userspace && make CROSS_PREFIX=x86_64-elf- selftest_binary.h && cd /src && make clean && make CROSS_PREFIX=x86_64-elf- kernel.bin SELFTEST=1"
+
+      - name: Check self-test instruction set
+        env:
+          OBJDUMP: objdump
+        run: bash scripts/check-kernel-isa.sh
+
+      - name: Run kernel self-tests
+        env:
+          SIMPLEOS_SKIP_BUILD: "1"
+        run: bash scripts/selftest.sh 15

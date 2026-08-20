@@ -1,7 +1,7 @@
 CROSS_PREFIX ?= i686-elf-
 CC = $(CROSS_PREFIX)gcc
 LD = $(CROSS_PREFIX)ld
-CFLAGS = -ffreestanding -nostdlib -fno-builtin -fno-stack-protector -m32
+CFLAGS = -ffreestanding -nostdlib -fno-builtin -fno-stack-protector -m32 -mno-80387 -mno-mmx -mno-sse -mno-sse2
 LDFLAGS = -m elf_i386 -T link.ld -nostdlib
 
 PROGRAMS = hello shell grep wc selftest

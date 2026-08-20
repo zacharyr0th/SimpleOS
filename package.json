@@ -9,7 +9,9 @@
   },
   "workspaces": ["web"],
   "overrides": {
-    "postcss": "8.5.10"
+    "nanoid": "3.3.18",
+    "postcss": "8.5.26",
+    "sharp": "0.35.3"
   },
   "scripts": {
     "dev": "bun run --cwd web dev",
@@ -21,9 +23,13 @@
     "typecheck": "bun run --cwd web typecheck",
     "test": "python3 verify_os.py",
     "test:unit": "bun run test",
-    "test:e2e": "echo \"Kernel/QEMU e2e runs in the SimpleOS workflow\"",
-    "test:kernel": "make kernel.bin && bash scripts/smoke-test.sh 12 && bash scripts/selftest.sh 15",
+    "test:e2e": "bun run test:kernel",
+    "test:kernel": "make kernel.bin && bash scripts/check-kernel-isa.sh && bash scripts/smoke-test.sh 12 && bash scripts/selftest.sh 15",
     "validate": "bun run lint && bun run typecheck && bun run test:unit",
     "validate:full": "bun run validate && bun run build && bun run test:e2e"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.5.6",
+    "@raintree-technology/trellis": "0.3.0"
   }
 }

@@ -11,7 +11,14 @@ SECS="${1:-6}"
 QEMU="${QEMU:-qemu-system-i386}"
 LOG="$(mktemp -t sos_serial.XXXXXX)"
 
-make kernel.bin >/dev/null
+if [[ "${SIMPLEOS_SKIP_BUILD:-0}" != "1" ]]; then
+    make kernel.bin >/dev/null
+fi
+
+if [[ ! -f kernel.bin ]]; then
+    echo "FAIL: kernel.bin is missing"
+    exit 1
+fi
 
 "$QEMU" -kernel kernel.bin -m 512M -display none -serial "file:$LOG" \
     -no-reboot -no-shutdown >/dev/null 2>&1 &

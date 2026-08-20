@@ -1,23 +1,25 @@
 # SimpleOS
 
+<!-- project-record: simpleos -->
+
+**Active open-source learning project · MIT licensed**
+
 A Unix-like 32-bit x86 operating system built from scratch in C and assembly
-that boots from a real ISO and runs in your browser through v86.
+for systems programmers and students. It boots from a real ISO and runs in your
+browser through v86.
+
+## Boot SimpleOS
 
 **[Boot SimpleOS in your browser →](https://os.raintree.technology)**
+
+The emulator opens at the shell prompt. Run `help`, `ps`, `ls`, or a pipeline such as
+`echo hello | wc` to exercise the same kernel and userspace built by this repository.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![GitHub stars](https://img.shields.io/github/stars/raintree-technology/SimpleOS?style=social)](https://github.com/raintree-technology/SimpleOS/stargazers)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](#contributing)
 
-## Star History
-
-<a href="https://star-history.com/#raintree-technology/SimpleOS&Date">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=raintree-technology/SimpleOS&type=Date&theme=dark" />
-    <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=raintree-technology/SimpleOS&type=Date" />
-    <img alt="Star history chart for raintree-technology/SimpleOS" src="https://api.star-history.com/svg?repos=raintree-technology/SimpleOS&type=Date" />
-  </picture>
-</a>
+## Why use SimpleOS
 
 SimpleOS is a learning project — a from-scratch kernel that implements
 processes, virtual memory, syscalls, pipes, signals, a filesystem, and a shell,
@@ -42,6 +44,7 @@ from the ground up.
 - [Reading the Code](#reading-the-code)
 - [Verification](#verification)
 - [Contributing](#contributing)
+- [Raintree open-source system](#raintree-open-source-system)
 - [License](#license)
 
 ## What's Inside
@@ -218,9 +221,9 @@ exactly what's absent instead of booting into a broken state.
 
 ```bash
 cd web
-npm install
-npm run dev         # starts on port 3500
-npm run build:os    # rebuild kernel and copy ISO in one step
+bun install
+bun run dev         # starts on port 3500
+bun run build:os    # rebuild kernel and copy ISO in one step
 ```
 
 For a production build, prepare the pinned browser runtime after building the
@@ -270,15 +273,25 @@ dependencies, function signatures, syscall coverage, and common issues.
 
 ## Contributing
 
-Contributions are welcome!
+Read [CONTRIBUTING.md](CONTRIBUTING.md) for the code style, generated-artifact boundary,
+and required web and kernel checks.
 
-1. Fork the repo and create a branch: `git checkout -b feat/your-feature`
-2. Make your changes and ensure the build passes: `make kernel.bin`
-3. Run the checks: `scripts/smoke-test.sh` and `scripts/selftest.sh` (and `python3 verify_os.py`)
-4. Open a pull request with a clear description of what changed and why
+## Raintree open-source system
 
-Please follow the existing code style (K&R-adjacent C, descriptive names, comments
-on non-obvious logic). For larger changes, open an issue first to discuss the approach.
+SimpleOS is an independent systems-learning project. Raintree also maintains
+[DocPull](https://github.com/raintree-technology/docpull) for context acquisition,
+[HIG Doctor](https://github.com/raintree-technology/hig-doctor) for interface audits,
+[PolicyStrata](https://github.com/raintree-technology/policystrata) for policy regression
+testing, [Trellis](https://github.com/raintree-technology/trellis) for shared code policy,
+and [Raintree Standards](https://github.com/raintree-technology/raintree.standards) for
+governed requirements. See the
+[Raintree open-source portfolio](https://raintree.technology/portfolio#open-source).
+
+## Project policies
+
+[Contributing](CONTRIBUTING.md) · [Code of Conduct](CODE_OF_CONDUCT.md) · [Security](SECURITY.md) ·
+[Changelog](CHANGELOG.md) ·
+[Source repository](https://github.com/raintree-technology/SimpleOS) · [MIT License](LICENSE)
 
 ## License
 

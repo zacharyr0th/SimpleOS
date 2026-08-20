@@ -13,11 +13,18 @@ SECS="${1:-8}"
 QEMU="${QEMU:-qemu-system-i386}"
 LOG="$(mktemp -t sos_selftest.XXXXXX)"
 
-# Regenerate the embedded selftest binary, then force a -DSELFTEST rebuild
-# (make does not track CFLAGS changes, so a clean is required when toggling).
-make -C userspace selftest_binary.h >/dev/null
-make clean >/dev/null
-make kernel.bin SELFTEST=1 >/dev/null
+if [[ "${SIMPLEOS_SKIP_BUILD:-0}" != "1" ]]; then
+    # Regenerate the embedded selftest binary, then force a -DSELFTEST rebuild
+    # (make does not track CFLAGS changes, so a clean is required when toggling).
+    make -C userspace selftest_binary.h >/dev/null
+    make clean >/dev/null
+    make kernel.bin SELFTEST=1 >/dev/null
+fi
+
+if [[ ! -f kernel.bin ]]; then
+    echo "FAIL: self-test kernel.bin is missing"
+    exit 1
+fi
 
 "$QEMU" -kernel kernel.bin -m 512M -display none -serial "file:$LOG" \
     -no-reboot -no-shutdown >/dev/null 2>&1 &

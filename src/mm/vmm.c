@@ -86,7 +86,7 @@ void vmm_destroy_address_space(uint32_t* pd_to_destroy) {
         return;  // Don't destroy kernel page directory
     }
 
-    for (int i = PD_INDEX(USER_VADDR_MIN); i < PD_INDEX(KERNEL_BASE); i++) {
+    for (size_t i = PD_INDEX(USER_VADDR_MIN); i < PD_INDEX(KERNEL_BASE); i++) {
         if (pd_to_destroy[i] & PAGE_PRESENT) {
             if (pd_to_destroy[i] & PAGE_USER) {
                 free_pt(pd_to_destroy[i] & ~0xFFF);
@@ -276,7 +276,7 @@ uint32_t* vmm_clone_address_space(uint32_t* parent_pd) {
     }
 
     // COW-clone user space page tables
-    for (int i = PD_INDEX(USER_VADDR_MIN); i < PD_INDEX(KERNEL_BASE); i++) {
+    for (size_t i = PD_INDEX(USER_VADDR_MIN); i < PD_INDEX(KERNEL_BASE); i++) {
         if (parent_pd[i] & PAGE_PRESENT) {
             uint32_t* parent_pt = (uint32_t*)(parent_pd[i] & ~0xFFF);
 
@@ -355,7 +355,7 @@ bool vmm_handle_cow_fault(uint32_t* pd, uint32_t faulting_address) {
 
 // Clear user space mappings (for exec)
 void vmm_clear_user_space(uint32_t* pd) {
-    for (int i = PD_INDEX(USER_VADDR_MIN); i < PD_INDEX(KERNEL_BASE); i++) {
+    for (size_t i = PD_INDEX(USER_VADDR_MIN); i < PD_INDEX(KERNEL_BASE); i++) {
         if (pd[i] & PAGE_PRESENT) {
             free_pt(pd[i] & ~0xFFF);
             pd[i] = 0;

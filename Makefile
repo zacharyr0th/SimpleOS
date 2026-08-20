@@ -14,7 +14,7 @@ ARCH_INCLUDE_DIR = include/arch/$(ARCH_DIR)
 ARCH_BUILD_DIR = arch/$(ARCH_DIR)
 
 # Compiler flags
-CFLAGS = -ffreestanding -c -m32 -O2 -Wall -Wextra -I./include -I./$(ARCH_INCLUDE_DIR) -I./include/kernel -I./include/mm -I./include/drivers -I./include/fs -I./include/ipc -I./include/lib -I./include/boot
+CFLAGS = -ffreestanding -c -m32 -O2 -Wall -Wextra -mno-80387 -mno-mmx -mno-sse -mno-sse2 -I./include -I./$(ARCH_INCLUDE_DIR) -I./include/kernel -I./include/mm -I./include/drivers -I./include/fs -I./include/ipc -I./include/lib -I./include/boot
 
 # SELFTEST=1 builds a kernel that runs the userspace self-test as init instead
 # of the demo threads + shell (see scripts/selftest.sh). Requires `make clean`
