@@ -14,6 +14,7 @@
   "scripts": {
     "dev": "bun run --cwd web dev",
     "build": "bun run --cwd web build",
+    "prepare:web-assets": "bash scripts/prepare-web-assets.sh",
     "lint": "bun run --cwd web lint",
     "lint:fix": "bun run --cwd web lint:fix",
     "format": "bun run --cwd web format",

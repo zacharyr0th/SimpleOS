@@ -3,6 +3,8 @@
 A Unix-like 32-bit x86 operating system built from scratch in C and assembly
 that boots from a real ISO and runs in your browser through v86.
 
+**[Boot SimpleOS in your browser →](https://os.raintree.technology)**
+
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![GitHub stars](https://img.shields.io/github/stars/raintree-technology/SimpleOS?style=social)](https://github.com/raintree-technology/SimpleOS/stargazers)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](#contributing)
@@ -219,6 +221,17 @@ cd web
 npm install
 npm run dev         # starts on port 3500
 npm run build:os    # rebuild kernel and copy ISO in one step
+```
+
+For a production build, prepare the pinned browser runtime after building the
+ISO, then build from the `web/` directory:
+
+```bash
+./build.sh
+bun run prepare:web-assets
+cd web
+vercel build --prod
+vercel deploy --prebuilt --prod
 ```
 
 ## Reading the Code
