@@ -2,52 +2,33 @@
 
 <!-- project-record: simpleos -->
 
-**Active open-source learning project · MIT licensed**
+**Complete open-source learning project · MIT License**
 
 A Unix-like 32-bit x86 operating system built from scratch in C and assembly
-for systems programmers and students. It boots from a real ISO and runs in your
+for systems programmers and students. It boots from a real ISO in QEMU or in a
 browser through v86.
 
 ## Boot SimpleOS
 
-**[Boot SimpleOS in your browser →](https://os.raintree.technology)**
+Build the ISO and boot it in QEMU with `make run`, or run the [browser demo](#browser-demo)
+locally. See [Building](#building) for the toolchain.
 
-The emulator opens at the shell prompt. Run `help`, `ps`, `ls`, or a pipeline such as
+SimpleOS starts at the shell prompt. Run `help`, `ps`, `ls`, or a pipeline such as
 `echo hello | wc` to exercise the same kernel and userspace built by this repository.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![GitHub stars](https://img.shields.io/github/stars/raintree-technology/SimpleOS?style=social)](https://github.com/raintree-technology/SimpleOS/stargazers)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](#contributing)
 
 ## Why use SimpleOS
 
-SimpleOS is a learning project — a from-scratch kernel that implements
-processes, virtual memory, syscalls, pipes, signals, a filesystem, and a shell,
-all in roughly 8,000 lines of code. It boots as a real ISO image via GRUB, and
-an optional [web app](web/) can run the OS in-browser using the
-[v86](https://github.com/copy/v86) x86 emulator.
+Read a complete, small kernel end to end. SimpleOS implements processes, virtual
+memory, syscalls, pipes, signals, a filesystem, and a shell in roughly 8,000 lines
+of code. It boots as a real ISO image via GRUB, and the optional [web app](web/)
+runs it in the browser with the [v86](https://github.com/copy/v86) x86 emulator.
 
-This isn't a production operating system. It's a proof of concept and a learning
-tool — built to understand how operating systems actually work by writing one
-from the ground up.
+SimpleOS is not a production operating system. It exists to show how an operating
+system works by building one from the ground up.
 
-## Table of Contents
-
-- [What's Inside](#whats-inside)
-- [Boot Flow](#boot-flow)
-- [Memory Layout](#memory-layout)
-- [Syscalls](#syscalls)
-- [Shell](#shell)
-- [Repository Layout](#repository-layout)
-- [Building](#building)
-- [Browser Demo](#browser-demo)
-- [Reading the Code](#reading-the-code)
-- [Verification](#verification)
-- [Contributing](#contributing)
-- [Raintree open-source system](#raintree-open-source-system)
-- [License](#license)
-
-## What's Inside
+## What's inside
 
 | Subsystem | Key files | What it does |
 |-----------|-----------|--------------|
@@ -65,7 +46,7 @@ from the ground up.
 | **Userspace** | [shell.c](userspace/shell.c), [grep.c](userspace/grep.c), [wc.c](userspace/wc.c), [hello.c](userspace/hello.c) | Freestanding programs built as ELF, converted to C byte arrays, embedded in the kernel image |
 | **Web demo** | [Emulator.tsx](web/components/Emulator.tsx), [CRTFrame.tsx](web/components/CRTFrame.tsx) | v86 emulator with asset preflight, CRT-styled terminal with animated ASCII background |
 
-## Boot Flow
+## Boot flow
 
 ```
 GRUB (Multiboot2)
@@ -78,7 +59,7 @@ GRUB (Multiboot2)
 The kernel is linked at 1MB ([linker.ld](linker.ld)). The heap lives at 2–3.5MB.
 User processes get virtual addresses starting at 128MB, with stacks below 3GB.
 
-## Memory Layout
+## Memory layout
 
 ```
 0x00100000  (1MB)    Kernel code (.multiboot, .text, .data, .bss)
@@ -134,7 +115,7 @@ The [shell](userspace/shell.c) supports:
 - **Job control**: Ctrl+C (SIGINT), Ctrl+Z (SIGTSTP) routed to the foreground job
 - **History**: up/down arrows (10 entries)
 
-## Repository Layout
+## Repository layout
 
 ```
 src/
@@ -163,7 +144,7 @@ Userspace programs are compiled separately ([userspace/Makefile](userspace/Makef
 then converted to C byte arrays with `xxd -i` and `#include`d into the kernel's
 [filesystem init](src/fs/fs.c).
 
-### Dev Container (recommended)
+### Dev container (recommended)
 
 Open the repo in VS Code, Cursor, or Zed — the [devcontainer config](.devcontainer/devcontainer.json)
 has everything pre-installed.
@@ -173,7 +154,7 @@ make
 cd web && npm install && npm run dev
 ```
 
-### Local Toolchain
+### Local toolchain
 
 See [scripts/setup-toolchain.sh](scripts/setup-toolchain.sh) for install
 instructions. You need:
@@ -194,7 +175,7 @@ make kernel.bin
 qemu-system-i386 -kernel kernel.bin
 ```
 
-### Docker Build
+### Docker build
 
 ```bash
 ./build.sh    # builds simpleos.iso → web/public/os/
@@ -203,7 +184,7 @@ qemu-system-i386 -kernel kernel.bin
 The [Dockerfile](Dockerfile) extends a cross-compiler image with GRUB and xorriso.
 You can also get an interactive shell with [scripts/dev-shell.sh](scripts/dev-shell.sh).
 
-## Browser Demo
+## Browser demo
 
 The [web app](web/) boots the ISO in a [v86](https://github.com/copy/v86)
 emulator with a CRT-styled UI. It expects three assets:
@@ -237,7 +218,7 @@ vercel build --prod
 vercel deploy --prebuilt --prod
 ```
 
-## Reading the Code
+## Reading the code
 
 **Start here:** [src/kernel/kernel.c](src/kernel/kernel.c) — `kernel_main()`
 initializes every subsystem in order and is the best map of how the pieces
@@ -287,13 +268,14 @@ and [Raintree Standards](https://github.com/raintree-technology/raintree.standar
 governed requirements. See the
 [Raintree open-source portfolio](https://raintree.technology/portfolio#open-source).
 
+Raintree also builds [BetterOff](https://betteroff.finance), which keeps a household's
+spending, investments, assets, debts, and net worth in one current record.
+
 ## Project policies
 
 [Contributing](CONTRIBUTING.md) · [Code of Conduct](CODE_OF_CONDUCT.md) · [Security](SECURITY.md) ·
 [Changelog](CHANGELOG.md) ·
 [Source repository](https://github.com/raintree-technology/SimpleOS) · [MIT License](LICENSE)
 
-## License
-
-SimpleOS source is [MIT](LICENSE) licensed. Third-party tools and runtime
-assets used to build or run the project keep their own licenses.
+Third-party tools and runtime assets used to build or run SimpleOS keep their own
+licenses.
