@@ -18,7 +18,7 @@
     "validate": "bun run lint && bun run typecheck && bun run test:unit",
     "validate:full": "bun run validate && bun run build && bun run test:e2e"
   },
-  "packageManager": "bun@1.3.11",
+  "packageManager": "bun@1.4.3",
   "engines": {
     "node": "24.x"
   },

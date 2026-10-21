@@ -10,6 +10,6 @@ SimpleOS is a teaching operating system for 32-bit x86 with a browser demo.
 - Keep downloaded browser runtime and BIOS assets pinned and checksum-verified.
 - Do not commit generated objects, binaries, ISO images, browser runtime assets, or
   local environment files.
-- Use Bun 1.3.11 and Node 24 for the web app.
+- Use Bun 1.4.3 and Node 24 for the web app.
 - Run `bun run validate` for web or static changes. Run `bun run validate:full` when
   the cross-toolchain and QEMU are available for kernel or release-facing changes.
